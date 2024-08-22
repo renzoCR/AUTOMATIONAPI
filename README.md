@@ -1,1 +1,2 @@
-# AUTOMATIONAPI
+# QAInnovationLab
+Automation Team / For education purpose
