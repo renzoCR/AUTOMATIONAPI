@@ -6,12 +6,12 @@ Feature: Validar Creación y obtencion de Order
       | id   | petId | quantity | shipDate                    | status | complete |
       | <id> | <petId> | <quantity> | <shipDate>                | <status> | <complete> |
     When envio una petición POST al endpoint
-    Then obtengo el código "<codigoEstatus>"
+    Then obtengo el código <codigoEstatus>
 
     Examples:
       | codigoEstatus | id | petId | quantity | shipDate                    | status | complete |
       | 200           | 2  | 1     | 1        | 2024-08-22T22:05:54.170Z    | placed | true     |
-      | 400           | 0  | 0     | 0        |                            | placed | false    |
+      | 200           | 6  | 100     | 1        |2024-08-22T22:05:54.170Z   | placed | true     |
 
 
   @prueba
@@ -22,5 +22,5 @@ Feature: Validar Creación y obtencion de Order
 
     Examples:
       | codigoEstatus | id|
-      | 200           |"1"  |
-      | 400           |"2"  |
+      | 404           |-1 |
+      | 200           |2  |

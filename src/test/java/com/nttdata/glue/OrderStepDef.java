@@ -7,6 +7,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +21,7 @@ public class OrderStepDef {
     private static int ID = 0;
 
 
-    @Given("que tengo una orden con los siguientes datos   {int} , {int} , {int} , {string} , {string} ,  true")
-    public void queTengoUnaOrdenConLosSiguientesDatosTrue(int id, int pedId, int quantity, String shipDate, String status) {
-        orderSteps.prepararOrden(id, pedId, quantity, shipDate, status, true);
-    }
+
 
     @Given("que tengo una orden con los siguientes datos")
     public void queTengoUnaOrdenConLosSiguientesDatos(DataTable table) {
@@ -37,10 +37,10 @@ public class OrderStepDef {
             int id = Integer.parseInt(record.get("id"));
             int petId = Integer.parseInt(record.get("petId"));
             int quantity = Integer.parseInt(record.get("quantity"));
-            String shipDate = record.get("shipDate");
+            String isoDate = record.get("shipDate");
+            LocalDateTime shipDate = LocalDateTime.parse(isoDate, DateTimeFormatter.ISO_DATE_TIME);
             String status = record.get("status");
             boolean complete = Boolean.parseBoolean(record.get("complete"));
-
             orderSteps.prepararOrden(id, petId, quantity, shipDate, status, complete);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Error en el formato de los datos numéricos.", e);
@@ -54,7 +54,7 @@ public class OrderStepDef {
         orderSteps.CrearOrden();
     }
 
-    @Then("obtengo el código {string}")
+    @Then("obtengo el código {int}")
     public void obtengoElCódigo(int arg0) {
         orderSteps.validarResponse(arg0);
     }
@@ -81,9 +81,6 @@ public class OrderStepDef {
 
     }
 
-    @Given("que tengo una orden con los siguientes datos {int}, {int}, {string}, {string} ,{string} ,<complete>")
-    public void queTengoUnaOrdenConLosSiguientesDatosComplete(String arg0, String arg1, String arg2, String arg3, String arg4) {
 
-    }
 
 }
